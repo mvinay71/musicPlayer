@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="main_div">
+        <div class="music_container">
+            <h2 id="title">Song name</h2>
+            <h3 id="artist">Singer name</h3>
+            <div class="img_container">
+                <img src="./images/13-Places-to-Find-Background-Music-for-Video-Cover-Image-2.jpeg" alt="music-image">
+            </div>
+            <audio src="./music/01 - Baghon Mein Bahar Hai(DJTuborg).mp3"></audio>
+            <!-- progress bar -->
+            
+          
+            <!-- controls -->
+            <div class="music_controls">
+                <i class="fa fa-arrow-left" id="prev" title="Prev" aria-hidden="true"></i>
+                <i class="fa fa-play main_button" id="play" title="Play" aria-hidden="true"></i>
+
+                <i class="fa fa-arrow-right" id="next" title="Next" aria-hidden="true"></i>
+
+
+            </div>
+        </div>
+    </div>
+    <script>
+        const music = document.querySelector('audio');
+        const img = document.querySelector('img');
+        const play = document.getElementById('play');
+        const title = document.getElementById('title');
+        const artist = document.getElementById('artist');
+        const next = document.getElementById('next');
+        const prev = document.getElementById('prev');
+        let isPlaying = false;
+
+        const songs = [
+            {
+            name : '13-Places-to-Find-Background-Music-for-Video-Cover-Image-2',
+            title : 'baago me bahaar',
+            artist : 'Lata Mangeshkar'
+        },
+        {
+            name : '26_gubar_music-superJumbo',
+            title : 'Gun Guna Rahe',
+            artist : 'M. Rafi, Asha Bhosle'
+        },
+        {
+            name : 'images',
+            title : 'mere sapno ki rani',
+            artist : 'kishore kumar'
+        },
+        {
+            name : 'music-doodle-vector-21742685',
+            title : 'anonymous',
+            artist : 'anonymous'
+        },
+        {
+            name : 'music-is-life-itself-louis-armstrong-quote',
+            title : 'tune ye jana',
+            artist : 'unknown'
+        },
+        {
+            name : 'o-music-heart-facebook',
+            title : 'nazar me tu',
+            artist : 'kumar sanu,sapna mukharjee'
+        },
+        {
+            name : 'photo-1505740420928-5e560c06d30e',
+            title : 'hum bachpan ke',
+            artist : 'M. rafi'
+        },
+        {
+            name : 'slide_1',
+            title : 'pal pal dil ke pass',
+            artist : 'kishore kumar'
+        },
+        {
+            name : 'musc_171-mic_bokeh',
+            title : 'roop tera mastana',
+            artist : 'kishore kumar'
+        },
+    ];
+        
+
+        // for play functionality
+        const playMusic =()=>{
+            isPlaying = true;
+            music.play();
+            play.classList.replace('fa-play','fa-pause');
+            img.classList.add('anime');
+        }
+        // for pause funtionality
+        const pauseMusic =()=>{
+            isPlaying = false;
+            music.pause();
+            play.classList.replace('fa-pause','fa-play');
+            img.classList.remove('anime');
+        }
+
+        play.addEventListener('click',()=>{
+            if(isPlaying){
+                pauseMusic();
+            }else{
+                playMusic();
+            }
+        })
+
+        // change music
+        const loadSong = (songs)=>{
+            title.textContent = songs.title;
+            artist.textContent = songs.artist;
+            music.src = "music/"+songs.name+".mp3";
+            img.src = "images/"+songs.name+".jpeg";
+
+
+        }
+        songIndex= 5;
+        // loadSong(songs);
+        const nextSong = () =>{
+            songIndex = (songIndex+1)%songs.length;
+            loadSong(songs[songIndex]);
+            playMusic();
+        }
+        const prevSong = () =>{
+            songIndex = (songIndex - 1 + songs.length)%songs.length;
+            loadSong(songs[songIndex]);
+            playMusic();
+        }
+        next.addEventListener('click',nextSong);
+        prev.addEventListener('click',prevSong);
+    </script>
+</body>
+</html>
